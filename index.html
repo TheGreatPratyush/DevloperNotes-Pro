@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0%;
+            font-family: "Segoe UI", sans-serif;
+            color: #d4d4d4;
+            overflow: hidden;
+            /* prevent page scroll */
+        }
+        #main{
+            height: 100vh;
+            width: 100%;
+            background-color: #1e1e1e;
+            
+        }
+        .container{
+            height: 100%;
+            display: grid;
+            grid-template-columns: 220px 1fr 300px;
+            grid-template-rows: 70px 1fr 60px;
+            gap: 8px;
+            grid-template-areas:
+                    "header header header"
+                    "sidebar editor notes"
+                    "footer footer footer";
+            
+        }
+        .header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            grid-area: header;
+            background-color: #333333;
+        }
+        .sidebar{
+            background-color: #252526;
+            grid-area:sidebar;
+        }
+        .editor{
+            background-color: #1e1e1e;
+            grid-area:editor;
+        }
+        .notes{
+            background-color: #252526;
+            grid-area:notes;
+            padding: 16px;
+        }
+        .footer{
+            background-color: #333333;
+            grid-area:footer;
+        }
+        .logo,.notification{
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #007acc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px;
+        }
+        #logoouter{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        #heading{
+            padding: 20px;
+        }
+
+        .input-box {
+            width: 100%;
+            background-color: #1e1e1e;
+            border: 1px solid #3c3c3c;
+            color: #d4d4d4;
+            /* font-size: medium;
+            font-weight: 900; */
+            border-radius: 4px;
+            font-family: "Segoe UI", sans-serif;
+            padding: 8px 10px;
+            margin-bottom: 12px;
+        }
+
+        .createfolder {
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .createfolder:hover {
+            background-color: #333;
+        }
+
+        .sidebar {
+            overflow-y: auto;
+            /* allow scrolling */
+            padding: 12px;
+        }
+
+        .notes {
+            overflow-y: auto;
+            /* allow scrolling */
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div class="container">
+            <div class="header">
+                <div id="heading"><h2>DeveloperNotesPro - Developers Soul</h2></div>
+            
+                <div id="logoouter">
+                    <div class="logo">P</div>
+                    <div class="notification">N</div>
+                </div>
+            </div>
+            <div class="sidebar">
+                <h2 class="createfolder"> + create folder</h2>
+            </div>
+            <div class="editor"></div>
+            <div class="notes">
+                <h1>Explnation/Notes</h1>
+                <h3>Key Concept</h3>
+                    <textarea class="input-box" rows="3"></textarea>
+
+                    <h3>Time Complexity</h3>
+                    <input type="text" class="input-box" placeholder="O(n log n)">
+
+                    <h3>Space Complexity</h3>
+                    <input type="text" class="input-box" placeholder="O(1)">
+
+                    <h3>Explanation</h3>
+                    <textarea class="input-box" rows="6"></textarea>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </div>
+</body>
+</html>

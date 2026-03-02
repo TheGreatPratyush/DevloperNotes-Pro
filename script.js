@@ -70,11 +70,93 @@ function renderFolders() {
                 fileDiv.style.cursor = "pointer";
                 fileDiv.style.fontSize = "14px";
                 fileDiv.style.color = "#cbd5e1";
+
+                if (file.id === currentFileId){
+                    fileDiv.style.backgroundColor = "#1e293b";
+                }
+                fileDiv.addEventListener("click", function(e){
+                    e.stopPropagation();   // prevent folder click
+                    currentFileId = file.id;
+                    renderFolders();
+                    renderEditor();  // we will build this next
+                });
                 folderList.appendChild(fileDiv);
             }
         }
 
     }
+}
+
+
+
+
+function renderEditor() {
+
+    const editorDiv = document.querySelector(".editor");
+    editorDiv.innerHTML = "";
+
+    if (currentFileId === null) {
+        editorDiv.innerHTML = "<p style='padding:20px;'>Select a file to start coding</p>";
+        return;
+    }
+
+    const folder = appData.folders.find(f => f.id === currentFolderId);
+    const file = folder.files.find(f => f.id === currentFileId);
+
+    const container = document.createElement("div");
+    container.style.height = "100%";
+    container.style.display = "flex";
+    container.style.flexDirection = "column";
+
+    // TEXTAREA
+    const textarea = document.createElement("textarea");
+    textarea.style.flex = "1";
+    textarea.style.backgroundColor = "#0f172a";
+    textarea.style.color = "#e2e8f0";
+    textarea.style.border = "none";
+    textarea.style.outline = "none";
+    textarea.style.padding = "20px";
+    textarea.style.fontFamily = "monospace";
+    textarea.value = file.content;
+
+    textarea.addEventListener("input", function(e){
+        file.content = e.target.value;
+    });
+
+    // RUN BUTTON
+    const runBtn = document.createElement("button");
+    runBtn.textContent = "▶ Run";
+    runBtn.style.padding = "10px";
+    runBtn.style.backgroundColor = "#2563eb";
+    runBtn.style.color = "white";
+    runBtn.style.border = "none";
+    runBtn.style.cursor = "pointer";
+
+    // OUTPUT BOX
+    const outputBox = document.createElement("div");
+    outputBox.style.height = "150px";
+    outputBox.style.backgroundColor = "#111827";
+    outputBox.style.color = "#22c55e";
+    outputBox.style.padding = "10px";
+    outputBox.style.fontFamily = "monospace";
+    outputBox.style.overflowY = "auto";
+
+    runBtn.addEventListener("click", function(){
+
+        try {
+            const result = eval(file.content);
+            outputBox.textContent = result !== undefined ? result : "Code executed.";
+        } catch (error) {
+            outputBox.textContent = error;
+        }
+
+    });
+
+    container.appendChild(textarea);
+    container.appendChild(runBtn);
+    container.appendChild(outputBox);
+
+    editorDiv.appendChild(container);
 }
 
 
@@ -94,6 +176,7 @@ function handleFileCreation(){
     const newFile = {
         id : Date.now(),
         name : fileName,
+        content : "",
         versions : []
     }
 
@@ -112,7 +195,7 @@ function handleFileCreation(){
 
 
 
-
+let currentFileId=null
 
 let currentFolderId = null
 

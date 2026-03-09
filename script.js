@@ -56,6 +56,8 @@ function renderFolders() {
 
         folderDiv.addEventListener("click",function(){
             currentFolderId=folder.id
+            currentFileId = null;
+            renderFolders();
             renderFolders()
         })
         folderList.appendChild(folderDiv);
@@ -108,7 +110,7 @@ function renderEditor() {
     container.style.display = "flex";
     container.style.flexDirection = "column";
 
-    // TEXTAREA
+   
     const textarea = document.createElement("textarea");
     textarea.style.flex = "1";
     textarea.style.backgroundColor = "#0f172a";
@@ -132,7 +134,7 @@ function renderEditor() {
     runBtn.style.border = "none";
     runBtn.style.cursor = "pointer";
 
-    // OUTPUT BOX
+
     const outputBox = document.createElement("div");
     outputBox.style.height = "150px";
     outputBox.style.backgroundColor = "#111827";
